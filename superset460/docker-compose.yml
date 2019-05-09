@@ -3,7 +3,7 @@
 # DESCRIPTION: apache superset docker-compose.yml
 # Modified/revamped version of the https://github.com/apache/incubator-superset/blob/master/contrib/docker/docker-compose.yml
 
-version: '3'
+version: "3"
 services:
   redis:
     image: redis:3.2
@@ -26,6 +26,7 @@ services:
       - mysql:/var/lib/mysql
   superset:
     image: abhioncbr/docker-superset:${SUPERSET_VERSION}
+    # image: dgleba/docker-superset:${SUPERSET_VERSION}
     restart: always
     environment:
       MYSQL_USER: ${MYSQL_USER}

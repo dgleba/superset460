@@ -1,0 +1,45 @@
+
+
+
+----------------------------------------------------
+Title:  .
+-----------------------2019-05-06[May-Mon]22-36PM
+
+works - using his image.
+
+admin
+admin
+
+
+
+
+https://github.com/abhioncbr/docker-superset
+
+
+https://dzone.com/articles/docker-image-of-apache-superset
+
+
+sftp://192.168.88.39/srv/dkr/docker-superset
+
+----------------------------------------------------
+
+_____________
+
+
+
+docker build -t dgleba/docker-superset:0.28.0 --build-arg SUPERSET_VERSION=0.28.0 -f ./superset460/Dockerfile .
+
+
+I get error `can't connect mysql`  when I build it.
+
+
+eg:
+
+docker build -t abhioncbr/docker-superset:<version-tag> --build-arg SUPERSET_VERSION=<superset-version> -f ~/docker-superset/docker-files/Dockerfile .
+
+
+_____________
+
+
+_____________
+
