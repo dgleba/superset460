@@ -20,7 +20,7 @@ RUN useradd --create-home --no-log-init --uid 5004 --gid 5006 --home ${SUPERSET_
 
 # Configure environment
 ENV LANG=C.UTF-8 \
-    LC_ALL=C.UTF-8
+  LC_ALL=C.UTF-8
 
 RUN apt-get update -y
 # Install dependencies to fix `curl https support error` and `elaying package configuration warning`
@@ -32,7 +32,7 @@ RUN apt-get install -y vim less curl netcat postgresql-client mysql-client redis
 #docker build was failing because of cryptography package failure wirl libssl-dev.
 #instead of libssl-dev it is not set to `libssl1.0-dev`
 RUN apt-get update -y && apt-get install -y build-essential libssl1.0-dev \
-    libffi-dev python3-dev libsasl2-dev libldap2-dev libxi-dev
+  libffi-dev python3-dev libsasl2-dev libldap2-dev libxi-dev
 
 # Install nodejs for custom build
 # https://github.com/apache/incubator-superset/blob/master/docs/installation.rst#making-your-own-build
@@ -40,9 +40,9 @@ RUN apt-get update -y && apt-get install -y build-essential libssl1.0-dev \
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN apt-get install -y nodejs
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -; \
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list; \
-    apt-get update; \
-    apt-get install -y yarn
+  echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list; \
+  apt-get update; \
+  apt-get install -y yarn
 
 WORKDIR $SUPERSET_HOME
 
@@ -57,11 +57,11 @@ RUN pip install -r requirements.txt
 RUN pip install -r requirements-dev.txt
 RUN pip install -e .
 
-COPY docker-files/database-dependencies.txt .
+COPY superset460/database-dependencies.txt .
 RUN pip install -r database-dependencies.txt
 
 ENV PATH=${SUPERSET_HOME}/superset/bin:$PATH \
-    PYTHONPATH=${SUPERSET_HOME}superset/:${SUPERSET_HOME}config/:$PYTHONPATH
+  PYTHONPATH=${SUPERSET_HOME}superset/:${SUPERSET_HOME}config/:$PYTHONPATH
 
 # Install superset python packages
 # RUN pip install --install-option="--prefix=$SUPERSET_HOME" superset==$SUPERSET_VERSION
