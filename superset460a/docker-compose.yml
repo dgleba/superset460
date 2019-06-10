@@ -3,16 +3,20 @@
 # DESCRIPTION: apache superset docker-compose.yml
 # Modified/revamped version of the https://github.com/apache/incubator-superset/blob/master/contrib/docker/docker-compose.yml
 
-version: "3"
+version: "3.6"
+
 services:
-  redis:
+  redis-ss:
     image: redis:3.2
     restart: always
-    ports:
-      - 6379:6379
+    # ports:
+    #   - 6379:6379
+    expose:
+      - 6379
     volumes:
       - redis:/data
-  mysql:
+
+  mysql-ss:
     image: mysql:5.7
     restart: always
     environment:
@@ -21,9 +25,10 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
-      - 3306:3306
+      - 6263:3306
     volumes:
       - mysql:/var/lib/mysql
+
   superset:
     image: abhioncbr/docker-superset:${SUPERSET_VERSION}
     # image: dgleba/docker-superset:${SUPERSET_VERSION}
@@ -39,13 +44,14 @@ services:
       SUPERSET_ENV: ${SUPERSET_ENV}
       GOOGLE_APPLICATION_CREDENTIALS: ${GOOGLE_APPLICATION_CREDENTIALS}
     ports:
-      - 8088:8088
-      - 5555:5555
+      - 6361:8088
+      - 6362:5555
     depends_on:
-      - mysql
-      - redis
+      - mysql-ss
+      - redis-ss
     volumes:
-      - ../config/:/home/superset/config/
+      - ../ss-config/:/home/superset/config/
+
 volumes:
   mysql:
     external: false
